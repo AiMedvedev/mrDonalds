@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import logoImg from '../image/logo.svg';
+import signInImg from '../image/sign.svg';
 
 const NavBarStyled = styled.header`
     position: fixed;
@@ -33,13 +34,11 @@ const ImgLogo = styled.img`
 
 const Login = styled.button`
     font-family: Roboto, sans-serif;
-    background-color: deeppink;
+    background-color: transparent;
     font-size: 16px;
-    width: 70px;
-    height: 30px;
-    margin-right: 15px;
-    border: none;
-    border-radius: 5px;
+    margin-right: 20px;
+    border-color: transparent;
+    color: white;
 `;
 
 export const NavBar = () => (
@@ -48,6 +47,9 @@ export const NavBar = () => (
             <ImgLogo src={logoImg} alt="logo" />
             <H1>MrDonald's</H1>
         </Logo>
-        <Login>Login</Login>
+        <Login>
+            <img src={signInImg} alt="войти"/>
+            <p>войти</p>
+        </Login>
     </NavBarStyled>
 )
