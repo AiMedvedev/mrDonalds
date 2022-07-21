@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import logoImg from '../image/logo.svg';
-import signInImg from '../image/sign.svg';
+import logoImg from '../../image/logo.svg';
+import signInImg from '../../image/sign.svg';
 
 const NavBarStyled = styled.header`
     position: fixed;
@@ -9,7 +9,7 @@ const NavBarStyled = styled.header`
     left: 0;
     z-index: 999;
     height: 80px;
-    width: 100vw;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,7 +36,6 @@ const Login = styled.button`
     font-family: Roboto, sans-serif;
     background-color: transparent;
     font-size: 16px;
-    margin-right: 20px;
     border-color: transparent;
     color: white;
 `;
