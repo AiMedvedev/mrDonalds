@@ -51,4 +51,4 @@ export const NavBar = () => (
             <p>войти</p>
         </Login>
     </NavBarStyled>
-)
+);
