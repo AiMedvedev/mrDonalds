@@ -53,6 +53,9 @@ export const Order = ({ orders }) => {
     const total = orders.reduce((result, order) => 
                     totalPriceItems(order) + result, 0);
 
+    const totalCount = orders.reduce((result, order) => 
+    order.count + result, 0);
+
     return (
         <OrderStyled>
             <OrderTitle>
@@ -68,7 +71,7 @@ export const Order = ({ orders }) => {
             
             <OrderTotal>
                 <span>Итого</span>
-                <span>5</span>
+                <span>{totalCount}</span>
                 <TotalPrice>{formatCurrency(total)}</TotalPrice>
             </OrderTotal>
 
