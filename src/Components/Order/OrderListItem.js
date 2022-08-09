@@ -38,18 +38,20 @@ const Additions = styled.div`
 `;
 
 
-export const OrderListItem = ({ order }) => {
+export const OrderListItem = ({ order, index, deleteItem }) => {
+
     const topping = order.topping.filter(item => item.checked)
     .map(item => item.name)
     .join(', ');
+    
 
     return (
     <>
     <OrderItemStyled>
-        <ItemName>{order.name}</ItemName>
+        <ItemName>{order.name} {order.choice}</ItemName>
         <span>{order.count}</span>
         <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>
-        <TrashButton/>
+        <TrashButton onClick={() => deleteItem(index)}/>
         
     </OrderItemStyled>
     {topping && <Additions>Допы: {topping}</Additions>}
