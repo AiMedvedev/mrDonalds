@@ -11,23 +11,15 @@ import { useOpenItem } from './Components/Hooks/useOpenItem';
 import { useOrders } from './Components/Hooks/useOrders';
 import { useAuth } from './Components/Hooks/useAuth';
 
-/* const firebaseConfig = {
-  apiKey: "AIzaSyAM7OC9_eZGLCGQonGztP49s-5euhmSZYU",
-  authDomain: "mrdonalds-5a7f4.firebaseapp.com",
-  projectId: "mrdonalds-5a7f4",
-  storageBucket: "mrdonalds-5a7f4.appspot.com",
-  messagingSenderId: "788990244655",
-  appId: "1:788990244655:web:1d825fba47a029ad1353da"
-}; */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBpWUereJkMOWoeOqcgMDtljj2iOjiHHro",
-  authDomain: "mrdonalds-2dfcd.firebaseapp.com",
-  databaseURL: "https://mrdonalds-5a7f4-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "mrdonalds-2dfcd",
-  storageBucket: "mrdonalds-2dfcd.appspot.com",
-  messagingSenderId: "351455909729",
-  appId: "1:351455909729:web:33419f38acd9098b2c9720"
+  apiKey: "AIzaSyDlAqCnyHgJZqc9xYO3gEYnmIIRiAtWyJE",
+  authDomain: "mrdonalds-d1e0c.firebaseapp.com",
+  databaseURL: "https://mrdonalds-d1e0c-default-rtdb.firebaseio.com",
+  projectId: "mrdonalds-d1e0c",
+  storageBucket: "mrdonalds-d1e0c.appspot.com",
+  messagingSenderId: "249645868624",
+  appId: "1:249645868624:web:430cf7317d0de132521355"
 };
 
 firebase.initializeApp(firebaseConfig);
