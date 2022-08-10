@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import { ButtonCheckout } from '../Style/ButtonCheckout';
 import { OrderListItem } from './OrderListItem';
-import { totalPriceItems, formatCurrency } from '../Functions/secondaryFunction';
+import { totalPriceItems, formatCurrency, projection } from '../Functions/secondaryFunction';
 
 const OrderStyled = styled.section`
     position: fixed;
@@ -48,7 +48,18 @@ const EmptyList = styled.p`
     text-align: center;
 `;
 
-export const Order = ({ orders, setOrders, setOpenItem }) => {
+const rulesData = {
+    name: ['name'],
+    price: ['price'],
+    count: ['count'],
+    topping: ['topping', arr => arr.filter(obj => obj.checked).map(obj => obj.name)],
+    choice: ['choice', item => item ? item : 'no choices']
+}
+
+
+export const Order = ({ orders, setOrders, setOpenItem, authentification, logIn, firebaseDatabase }) => {
+
+    const dataBase = firebaseDatabase();
 
     const total = orders.reduce((result, order) => 
                     totalPriceItems(order) + result, 0);
@@ -63,6 +74,15 @@ export const Order = ({ orders, setOrders, setOpenItem }) => {
         setOrders(newOrders);
     }
 
+    const sendOrder = () => {
+        const newOrder = orders.map(projection(rulesData));
+        
+        dataBase.ref('orders').push().set({
+            clientName: authentification.displayName,
+            clientEmail: authentification.email,
+            order: newOrder
+        });
+    }
 
     return (
         <OrderStyled>
@@ -89,7 +109,7 @@ export const Order = ({ orders, setOrders, setOpenItem }) => {
                 <TotalPrice>{formatCurrency(total)}</TotalPrice>
             </OrderTotal> : ''}
 
-            <ButtonCheckout>Оформить</ButtonCheckout>
+            <ButtonCheckout onClick={() => authentification ? sendOrder() : logIn()}>Оформить</ButtonCheckout>
         </OrderStyled>
     )
 }
