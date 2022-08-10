@@ -16,14 +16,18 @@ const ButtonCount = styled.button`
     background-color: transparent;
 `;
 
-export function CountItem({ count, setCount,  onChange }) {
+export function CountItem({ count, setCount,  onChange, order }) {
 
     return (
         <CountWrapper>
             <span>Количество</span>
             <div>
                 <ButtonCount disabled={count <= 1} onClick={() => setCount(count - 1)}>-</ButtonCount>
-                <CountInput type='number' disabled value={count < 1 ? 1 : count} onChange={onChange} />
+                <CountInput 
+                    type='number' 
+                    disabled 
+                    value={count < 1 ? 1 : count} 
+                    onChange={onChange} />
                 <ButtonCount onClick={() => setCount(count + 1)} >+</ButtonCount>
             </div>
         </CountWrapper>

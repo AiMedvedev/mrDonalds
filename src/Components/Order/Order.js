@@ -48,7 +48,7 @@ const EmptyList = styled.p`
     text-align: center;
 `;
 
-export const Order = ({ orders, setOrders }) => {
+export const Order = ({ orders, setOrders, setOpenItem }) => {
 
     const total = orders.reduce((result, order) => 
                     totalPriceItems(order) + result, 0);
@@ -77,16 +77,17 @@ export const Order = ({ orders, setOrders }) => {
                         order={order}
                         deleteItem={deleteItem}
                         index={index}
+                        setOpenItem={setOpenItem}
                         />)}
                 </OrderList> : 
                 <EmptyList>Список заказов пуст</EmptyList>}
             </OrderContent>
             
-            <OrderTotal>
+            {orders.length ? <OrderTotal>
                 <span>Итого</span>
                 <span>{totalCount}</span>
                 <TotalPrice>{formatCurrency(total)}</TotalPrice>
-            </OrderTotal>
+            </OrderTotal> : ''}
 
             <ButtonCheckout>Оформить</ButtonCheckout>
         </OrderStyled>
