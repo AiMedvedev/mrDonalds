@@ -57,9 +57,7 @@ const rulesData = {
 }
 
 
-export const Order = ({ orders, setOrders, setOpenItem, authentification, logIn, firebaseDatabase }) => {
-
-    const dataBase = firebaseDatabase();
+export const Order = ({ orders, setOrders, setOpenItem, authentification, logIn, database }) => {
 
     const total = orders.reduce((result, order) => 
                     totalPriceItems(order) + result, 0);
@@ -77,7 +75,7 @@ export const Order = ({ orders, setOrders, setOpenItem, authentification, logIn,
     const sendOrder = () => {
         const newOrder = orders.map(projection(rulesData));
         
-        dataBase.ref('orders').push().set({
+        database.ref('orders').push().set({
             clientName: authentification.displayName,
             clientEmail: authentification.email,
             order: newOrder

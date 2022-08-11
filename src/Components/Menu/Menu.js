@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import dbMenu from '../DBMenu';
 import { Banner } from '../Menu/Banner';
 import { ListItem } from '../Menu/ListItem';
-import { useFetch } from '../Hooks/useFetch';
+//import { useFetch } from '../Hooks/useFetch';
 import { Audio } from  'react-loader-spinner';
 
 
@@ -19,10 +18,10 @@ const SectionMenu = styled.section`
 
 
 
-export const Menu = ({ setOpenItem }) => {
+export const Menu = ({ setOpenItem, dbMenu }) => {
 
-    const res = useFetch();
-    const dbMenu = res.response;
+   /*  const res = useFetch();
+    const dbMenu = res.response; */
 
     return (
         <MenuStyled>
@@ -46,7 +45,7 @@ export const Menu = ({ setOpenItem }) => {
                         />
                     </SectionMenu>
                 </> 
-                : res.error ? <div>Sorry, we will fix it.</div>
+                /* : res.error ? <div>Sorry, we will fix it.</div> */
                 : <Audio
                 height = "80"
                 width = "80"
