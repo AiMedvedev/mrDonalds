@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export function useAuth(authFirebase) {
-	const [authentification, setAuthentification] = useState(null);
+	const [authentication, setAuthentication] = useState(null);
 
 	const auth = authFirebase();
 
@@ -17,12 +17,12 @@ export function useAuth(authFirebase) {
 	useEffect(() => {
 		auth.onAuthStateChanged(user => {
 			if (user) {
-				setAuthentification(user);
+				setAuthentication(user);
 			} else {
-				setAuthentification(null);
+				setAuthentication(null);
 			}
 		})
-	}, [authentification]);
+	}, [auth, authentication]);
 
-	return { authentification, logIn, logOut }
+	return { authentication, logIn, logOut }
 }

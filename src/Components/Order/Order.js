@@ -82,6 +82,8 @@ export const Order = ({ orders, setOrders, setOpenItem, authentification, logIn,
             clientEmail: authentification.email,
             order: newOrder
         });
+
+        setOrders([]);
     }
 
     return (

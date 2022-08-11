@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import dbMenu from '../DBMenu';
 import { Banner } from '../Menu/Banner';
 import { ListItem } from '../Menu/ListItem';
+import { useFetch } from '../Hooks/useFetch';
+import { Audio } from  'react-loader-spinner';
 
 
 const MenuStyled = styled.main`
@@ -15,24 +17,46 @@ const SectionMenu = styled.section`
     padding: 30px;
 `;
 
-export const Menu = ({ setOpenItem }) => (
-    <MenuStyled>
-        <Banner/>
 
-        <SectionMenu>
-            <h2>Бургеры</h2>
-            <ListItem 
-                itemList={dbMenu.burger}
-                setOpenItem={setOpenItem}    
-            />
-        </SectionMenu>
 
-        <SectionMenu>
-            <h2>Закуски / Напитки</h2>
-            <ListItem 
-                itemList={dbMenu.other}
-                setOpenItem={setOpenItem}  
-            />
-        </SectionMenu>
-    </MenuStyled>
-);
+export const Menu = ({ setOpenItem }) => {
+
+    const res = useFetch();
+    const dbMenu = res.response;
+
+    return (
+        <MenuStyled>
+            <Banner/>
+    
+            {dbMenu ? 
+                <>
+                    <SectionMenu>
+                    <h2>Бургеры</h2>
+                    <ListItem 
+                        itemList={dbMenu.burger}
+                        setOpenItem={setOpenItem}    
+                    />
+                    </SectionMenu>
+            
+                    <SectionMenu>
+                        <h2>Закуски / Напитки</h2>
+                        <ListItem 
+                            itemList={dbMenu.other}
+                            setOpenItem={setOpenItem}  
+                        />
+                    </SectionMenu>
+                </> 
+                : res.error ? <div>Sorry, we will fix it.</div>
+                : <Audio
+                height = "80"
+                width = "80"
+                radius = "9"
+                color = 'green'
+                ariaLabel = 'three-dots-loading'     
+                wrapperStyle
+                wrapperClass="true"
+                />
+            }
+        </MenuStyled>
+    )
+};
