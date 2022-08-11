@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import dbMenu from '../DBMenu';
 import { Banner } from '../Menu/Banner';
 import { ListItem } from '../Menu/ListItem';
 import { useFetch } from '../Hooks/useFetch';
 import { Audio } from  'react-loader-spinner';
+import { Context } from '../Functions/context';
 
 
 const MenuStyled = styled.main`
@@ -19,11 +19,13 @@ const SectionMenu = styled.section`
 
 
 
-export const Menu = ({ setOpenItem }) => {
+export const Menu = () => {
 
+    const { openItem: {setOpenItem} } = useContext(Context);
     const res = useFetch();
     const dbMenu = res.response;
 
+    
     return (
         <MenuStyled>
             <Banner/>

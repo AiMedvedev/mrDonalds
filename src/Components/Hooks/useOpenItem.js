@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function useOpenItem() {
+export const useOpenItem = () => {
     const [openItem, setOpenItem] = useState(null);
 
     return { openItem, setOpenItem };

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useAuth(authFirebase) {
+export const useAuth = (authFirebase) => {
 	const [authentication, setAuthentication] = useState(null);
 
 	const auth = authFirebase();

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import logoImg from '../../image/logo.svg';
 import signInImg from '../../image/sign.svg';
+import { Context } from '../Functions/context';
 
 const NavBarStyled = styled.header`
     position: fixed;
@@ -58,25 +59,29 @@ const Figure = styled.figure`
 `;
 
 
-export const NavBar = ({ authentification, logIn, logOut }) => (
-    <NavBarStyled>
-        <Logo>
-            <ImgLogo src={logoImg} alt="logo" />
-            <H1>MrDonald's</H1>
-        </Logo>
-        {authentification ? 
-            <User>
-                <Figure>
-                    <img src={signInImg} alt={authentification.displayName}/>
-                    <figcaption>{authentification.displayName}</figcaption>
-                </Figure>
-                <Logout title="выйти" onClick={logOut}>X</Logout>
-            </User>  : 
-            <Login onClick={logIn}>
-                <Figure>
-                    <img src={signInImg} alt="войти"/>
-                    <figcaption>войти</figcaption>
-                </Figure>
-            </Login>}
-    </NavBarStyled>
-);
+export const NavBar = () => {
+    const {auth: { authentication, logIn, logOut }} = useContext(Context);
+    
+    return (
+        <NavBarStyled>
+            <Logo>
+                <ImgLogo src={logoImg} alt="logo" />
+                <H1>MrDonald's</H1>
+            </Logo>
+            {authentication ? 
+                <User>
+                    <Figure>
+                        <img src={signInImg} alt={authentication.displayName}/>
+                        <figcaption>{authentication.displayName}</figcaption>
+                    </Figure>
+                    <Logout title="выйти" onClick={logOut}>X</Logout>
+                </User>  : 
+                <Login onClick={logIn}>
+                    <Figure>
+                        <img src={signInImg} alt="войти"/>
+                        <figcaption>войти</figcaption>
+                    </Figure>
+                </Login>}
+        </NavBarStyled>
+    )
+};

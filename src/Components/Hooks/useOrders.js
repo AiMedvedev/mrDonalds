@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function useOrders() {
+export const useOrders = () => {
     const [orders, setOrders] = useState([]);
 
     return { orders, setOrders };

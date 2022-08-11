@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function useChoices() {
+export const useChoices = () => {
 	const [choice, setChoice] = useState();
 
 	function changeChoices(e) {
