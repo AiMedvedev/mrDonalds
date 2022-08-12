@@ -7,22 +7,10 @@ import { Toppings } from './Toppings';
 import { totalPriceItems, formatCurrency } from '../Functions/secondaryFunction';
 import { useToppings } from '../Hooks/useToppings';
 import { useChoices } from '../Hooks/useChoices';
-import { Choices}  from './Choices';
-import { Context } from '../Functions/context';
+import { Choices }  from './Choices';
+import { Context, ContextItem } from '../Functions/context';
+import { Overlay } from '../Style/OrderLayout';
 
-
-export const Overlay = styled.div`
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    z-index: 999;
-`;
 
 const Modal = styled.div`
     background-color: #fff;
@@ -64,7 +52,10 @@ const TotalPriceItem = styled.div`
 
 export const ModalItem = () => {
     
-    const { openItem: {openItem, setOpenItem}, orders: {orders, setOrders} } = useContext(Context);
+    const { 
+        openItem: {openItem, setOpenItem}, 
+        orders: {orders, setOrders} 
+    } = useContext(Context);
 
     const counter = useCount(openItem.count);
     const toppings = useToppings(openItem);
@@ -99,32 +90,38 @@ export const ModalItem = () => {
     }
 
     return (
-        <Overlay id="overlay" onClick={closeModal}>
-            <Modal>
-                <Banner img={openItem.img}/>
+        <ContextItem.Provider value={{
+            choices,
+            counter,
+            toppings
+        }}>
+            <Overlay id="overlay" onClick={closeModal}>
+                <Modal>
+                    <Banner img={openItem.img}/>
 
-                <Content>
-                    <HeaderContent>
-                        <p>{openItem.name}</p>
-                        <p>{formatCurrency(openItem.price)}</p>
-                    </HeaderContent>
+                    <Content>
+                        <HeaderContent>
+                            <p>{openItem.name}</p>
+                            <p>{formatCurrency(openItem.price)}</p>
+                        </HeaderContent>
 
-                    <CountItem {...counter} />
-                    {openItem.toppings && <Toppings {...toppings}/>}
-                    {openItem.choices && <Choices {...choices} openItem={openItem}/>}
+                        <CountItem />
+                        {openItem.toppings && <Toppings />}
+                        {openItem.choices && <Choices openItem={openItem} />}
 
-                    <TotalPriceItem>
-                        <span>Цена</span>
-                        <span>{formatCurrency(totalPriceItems(order))}
-                        </span>
-                    </TotalPriceItem>
-                    <ButtonCheckout 
-                    onClick={isEdit ? editOrder : addToOrder}
-                    disabled={order.choices && !order.choice}
-                    >{isEdit ? 'Редактировать' : 'Добавить'}</ButtonCheckout>
-                </Content>
-            </Modal>
-        </Overlay>
+                        <TotalPriceItem>
+                            <span>Цена</span>
+                            <span>{formatCurrency(totalPriceItems(order))}
+                            </span>
+                        </TotalPriceItem>
+                        <ButtonCheckout 
+                        onClick={isEdit ? editOrder : addToOrder}
+                        disabled={order.choices && !order.choice}
+                        >{isEdit ? 'Редактировать' : 'Добавить'}</ButtonCheckout>
+                    </Content>
+                </Modal>
+            </Overlay>
+        </ContextItem.Provider>
     );
 };
 

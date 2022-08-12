@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 import React, { useContext } from 'react';
-import { Overlay } from '../Modal/ModalItem';
-import {OrderTitle, OrderTotal, TotalPrice } from './Order';
+import { Overlay, OrderTitle, OrderTotal, TotalPrice } from '../Style/OrderLayout';
 import { ButtonCheckout } from '../Style/ButtonCheckout';
 import { totalPriceItems, formatCurrency, projection } from '../Functions/secondaryFunction';
 import { Context } from '../Functions/context';
-
 
 const Modal = styled.div`
 	background-color: white;
@@ -38,9 +36,15 @@ const sendOrder = (dataBase, orders, authentication) => {
         });
     }
 
-export const OrderConfirm = ({firebaseDatabase}) => {
+export const OrderConfirm = () => {
 
-	const { auth: {authentication}, orders: {orders, setOrders}, orderConfirm: {setOpenOrderConfirm} } = useContext(Context);
+	const { 
+		auth: {authentication}, 
+		orders: {orders, setOrders}, 
+		orderConfirm: {setOpenOrderConfirm},
+		firebaseDatabase,
+		thanks: {setOpenThanks} 
+	} = useContext(Context);
 
 	const dataBase = firebaseDatabase();
 
@@ -60,6 +64,7 @@ export const OrderConfirm = ({firebaseDatabase}) => {
 						sendOrder(dataBase, orders, authentication);
 						setOrders([]);
 						setOpenOrderConfirm(false);
+						setOpenThanks(true);		
 					}} >Подтвердить</ButtonCheckout>
 				</Modal>
 			</Overlay>

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import trashImage from '../../image/trash.svg';
 import { totalPriceItems, formatCurrency } from '../Functions/secondaryFunction';
+import { Context } from '../Functions/context';
+
 
 const OrderItemStyled = styled.li`
     display: flex;
@@ -39,7 +41,9 @@ const Additions = styled.div`
 `;
 
 
-export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
+export const OrderListItem = ({ order, index, deleteItem }) => {
+
+    const { openItem: {setOpenItem}} = useContext(Context);
 
     const topping = order.topping.filter(item => item.checked)
     .map(item => item.name)
@@ -48,14 +52,14 @@ export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
     const refDeleteButton = React.useRef(null);
 
     return (
-    <>
-    <OrderItemStyled onClick={(e) => e.target !== refDeleteButton.current && setOpenItem({...order, index})}>
-        <ItemName>{order.name} {order.choice}</ItemName>
-        <span>{order.count}</span>
-        <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>
-        <TrashButton ref={refDeleteButton} onClick={() => deleteItem(index)}/>
-        
-    </OrderItemStyled>
-    {topping && <Additions>Допы: {topping}</Additions>}
-    </>
+        <>
+            <OrderItemStyled onClick={(e) => e.target !== refDeleteButton.current && setOpenItem({...order, index})}>
+                <ItemName>{order.name} {order.choice}</ItemName>
+                <span>{order.count}</span>
+                <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>
+                <TrashButton ref={refDeleteButton} onClick={() => deleteItem(index)}/>
+                
+            </OrderItemStyled>
+            {topping && <Additions>Допы: {topping}</Additions>}
+        </>
 )};
